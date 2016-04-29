@@ -32,3 +32,15 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+bazinga_faker:
+    orm: doctrine
+    entities:
+        AppBundle\AppBundle\Entity\BonusCard:
+            number: 500
+            custom_formatters:
+                series:   { method: numberBetween, parameters: [ min = 100, max = 999 ] }
+                number:   { method: numberBetween, parameters: [ min = 100000, max = 999999 ] }
+                issueDate:   { method: dateTimeBetween,  parameters: [ startDate = '-2 year', max = 'now' ] }
+                expDate:   { method: dateTimeInInterval,  parameters: [ startDate = 'now', max = '+2 year' ] }
+                status:   { method: randomElement, parameters: [ [ 'active', 'inactive', 'expired' ] ] }
