@@ -3,9 +3,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="BonusCard")
+ * @GRID\Source(columns="id, number, issueDate, expDate, status")
  */
 class BonusCard
 {
@@ -17,31 +20,38 @@ class BonusCard
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @GRID\Column(title="ID", type="number", size="40", operatorsVisible=false, primary=true, align="center")
      */
     private $id;
 
     /**
      * @ORM\Column(type="smallint", length=3)
+     * @GRID\Column(title="Series", type="number", operatorsVisible=false, align="center")
      */
     private $series;
 
     /**
-     * @ORM\Column(type="smallint", length=6)
+     * @ORM\Column(type="integer", length=6)
+     * @GRID\Column(title="Number", type="number", operatorsVisible=false, align="center")
      */
     private $number;
 
     /**
      * @ORM\Column(type="datetime")
+     * @GRID\Column(title="issueDate", type="datetime", defaultOperator="btwe", operatorsVisible=false, align="center")
      */
     private $issueDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @GRID\Column(title="expDate", type="datetime", defaultOperator="btwe", operatorsVisible=false, align="center")
      */
     private $expDate;
 
     /**
      * @ORM\Column(type="string")
+     * @GRID\Column(title="Status", defaultOperator="eq", operatorsVisible=false, filter="select", selectFrom="values",
+     *     values={"active"="active","inactive"="inactive","expired"="expired"}, align="center")
      */
     private $status;
 
