@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 
 //use APY\DataGridBundle\Grid\Source\Entity;
 //use APY\DataGridBundle\Grid\Column\TextColumn;
@@ -17,19 +17,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 class BonusCardController extends Controller
 {
 
-    private $entityManager;
-
-    public function __construct(ObjectManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     /**
      * @Route("/bonus-card/edit/{id}", name="card_edit")
      */
     public function editAction($id, Request $request)
     {
-        
+
 
         // replace this example code with whatever you need
 //        return $this->render('default/grid.html.twig', array(
@@ -42,12 +35,23 @@ class BonusCardController extends Controller
      */
     public function deleteAction($id, Request $request)
     {
-        
+        if (!$id) {
+            throw $this->createNotFoundException('No BonusCard found');
+        }
 
-        // replace this example code with whatever you need
-//        return $this->render('default/grid.html.twig', array(
-//            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-//        ));
+        $em = $this->getDoctrine()->getManager();
+        $bonusCard = $em->find('\AppBundle\Entity\BonusCard',$id);
+        
+        if( $bonusCard ) {
+
+            $em->remove($bonusCard);
+            $em->flush();
+            return $this->redirect('/');
+        }
+        else {
+            throw $this->createNotFoundException('No BonusCard found');
+        }
+
     }
     
     /**
