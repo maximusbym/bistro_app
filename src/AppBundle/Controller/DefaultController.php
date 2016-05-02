@@ -34,7 +34,7 @@ class DefaultController extends Controller
         $grid->setSource($source);
 
         $grid->setLimits(array(25, 50));
-        $grid->setDefaultLimit(25);
+//        $grid->setDefaultLimit(25);
 
 
         // Add row actions in the default row actions column

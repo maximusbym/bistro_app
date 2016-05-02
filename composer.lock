@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "386a3a6edecfa27d5153fb6236ba254b",
-    "content-hash": "4ec66877e6bbc3531c771cdaeb38df03",
+    "hash": "db53cbb653d5d965656d3c6889e0ec1a",
+    "content-hash": "6156041a08ce8bb48b3da63ad2bbf3be",
     "packages": [
         {
             "name": "apy/datagrid-bundle",
@@ -1473,6 +1473,39 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "ptrofimov/xpmock",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ptrofimov/xpmock.git",
+                "reference": "7c8e43581caf5acd08182e0dca0b49a999f64ef0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ptrofimov/xpmock/zipball/7c8e43581caf5acd08182e0dca0b49a999f64ef0",
+                "reference": "7c8e43581caf5acd08182e0dca0b49a999f64ef0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Xpmock": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPUnit: simple syntax to create mock-objects",
+            "time": "2014-04-04 08:45:04"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3875,7 +3908,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "ptrofimov/xpmock": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

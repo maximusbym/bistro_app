@@ -11,8 +11,15 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/');
-
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+        $this->assertCount(1, $crawler->filter('#container .grid')); 
+
+        // Ajax request
+        $crawler = $client->request('POST', '/', array(), array(), array(
+            'HTTP_X-Requested-With' => 'XMLHttpRequest',
+        ));
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertCount(0, $crawler->filter('#container .grid'));
     }
+
 }

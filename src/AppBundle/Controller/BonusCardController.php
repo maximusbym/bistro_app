@@ -5,16 +5,25 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
-use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\TextColumn;
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Action\MassAction;
-use APY\DataGridBundle\Grid\Action\DeleteMassAction;
-use APY\DataGridBundle\Grid\Action\RowAction;
+//use APY\DataGridBundle\Grid\Source\Entity;
+//use APY\DataGridBundle\Grid\Column\TextColumn;
+//use APY\DataGridBundle\Grid\Column\ActionsColumn;
+//use APY\DataGridBundle\Grid\Action\MassAction;
+//use APY\DataGridBundle\Grid\Action\DeleteMassAction;
+//use APY\DataGridBundle\Grid\Action\RowAction;
 
 class BonusCardController extends Controller
 {
+
+    private $entityManager;
+
+    public function __construct(ObjectManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @Route("/bonus-card/edit/{id}", name="card_edit")
      */

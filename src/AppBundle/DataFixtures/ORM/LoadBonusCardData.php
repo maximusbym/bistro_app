@@ -20,15 +20,19 @@ class LoadBonusCardData implements FixtureInterface
             $issueDate = $faker->dateTimeBetween('-2 year', 'now');
             $expDate = clone $issueDate;
             $expDate = $expDate->add(new \DateInterval('P1Y'));
-            if ($expDate > $currDate) {
-                $status = 'active';
-            } else {
-                $status = 'inactive';
-            }
-            if (rand(0, 9) == 7) {
+            
+            if ($expDate < $currDate) {
                 $status = 'expired';
+            } else {
+                
+                if (rand(0, 1) == 1) {
+                    $status = 'inactive';
+                }
+                else {
+                    $status = 'active';
+                }
             }
-
+            
             $bonusCard->setSeries($faker->numberBetween(100, 999));
             $bonusCard->setNumber($faker->numberBetween(100000, 999999));
             $bonusCard->setIssueDate($issueDate);
