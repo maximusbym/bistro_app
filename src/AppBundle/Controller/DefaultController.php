@@ -20,33 +20,18 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //return $this->render('default/index.html.twig');
-
-        // Creates a simple grid based on your entity (ORM)
         $source = new Entity('AppBundle:BonusCard');
 
-        // Get a Grid instance
         $grid = $this->get('grid');
-
-//        $grid->setRouteUrl($this->generateUrl(''));
-
-        // Attach the source to the grid
         $grid->setSource($source);
-
         $grid->setLimits(array(25, 50));
-//        $grid->setDefaultLimit(25);
 
-
-        // Add row actions in the default row actions column
         $myRowAction = new RowAction('Toggle Status', 'card_toggle');
         $grid->addRowAction($myRowAction);
 
-//        $myRowAction = new RowAction('Edit', 'AppBundle:BonusCard:edit');
-//        $myRowAction = new RowAction('Edit', 'AppBundle\Controller\BonusCardController::editAction');
-        $myRowAction = new RowAction('Edit', 'card_edit');
+        $myRowAction = new RowAction('Profile', 'card_show');
         $grid->addRowAction($myRowAction);
 
-//        $myRowAction = new RowAction('Delete', 'AppBundle:BonusCard:delete', true, '_self');
         $myRowAction = new RowAction('Delete', 'card_delete', true, '_self');
         $grid->addRowAction($myRowAction);
 

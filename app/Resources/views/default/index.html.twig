@@ -10,23 +10,13 @@
             <div class="grid-block">
                 <h2>Bonus Cards</h2>
 
-                {#{{ dump() }}#}
-                {#{{ grid(grid) }}#}
-                {#{{ grid(grid, 'APYDataGridBundle::blocks_js.jquery.html.twig') }}#}
-
-                {#{% block gridView %}{% endblock %}#}
+                {% for flash_message in app.session.flashBag.get('notice') %}
+                    <div class="flash-notice">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
 
                 {{ grid(grid, 'APYDataGridBundle::blocks_js.jquery.html.twig') }}
-
-                {#{{ include('BonusCard/grid.html.twig', { 'grid': grid }) }}#}
-                {#{{ render(controller(#}
-                    {#'AppBundle:BonusCard:grid',#}
-                    {#{ 'max': 3 }#}
-                {#)) }}#}
-
-                {#{{ render_hinclude(controller('AppBundle:Default:index'),  {#}
-                    {#'default': grid(grid)#}
-                {#}) }}#}
 
             </div>
 

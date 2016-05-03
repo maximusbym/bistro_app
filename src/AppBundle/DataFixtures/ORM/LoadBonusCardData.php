@@ -4,6 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\BonusCard;
+use AppBundle\Entity\BonusCardHistory;
 use Faker\Factory as Faker;
 
 class LoadBonusCardData implements FixtureInterface
@@ -40,8 +41,34 @@ class LoadBonusCardData implements FixtureInterface
             $bonusCard->setStatus($status);
 
             $manager->persist($bonusCard);
+
+
+
+            $historyItems = rand(1,8);
+            for( $k=0; $k<$historyItems; $k++ ){
+
+                $bonusCardHistory = new BonusCardHistory();
+                $maxDate = ($expDate > $currDate) ? 'now' : $expDate ;
+                $bonusCardHistory->setDate($faker->dateTimeBetween($issueDate, $maxDate));
+                $bonusCardHistory->setProductName($faker->company());
+                $bonusCardHistory->setProductPrice($faker->randomFloat(2,1,10000));
+                $bonusCardHistory->setBonusCard($bonusCard);
+
+                $manager->persist($bonusCardHistory);
+            }
+
+
         }
 
         $manager->flush();
+
     }
+
+
+
+
+    
+
+
+
 }
