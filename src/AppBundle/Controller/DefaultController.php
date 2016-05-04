@@ -46,7 +46,6 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $data = $form->getData();
             $this->get('app.generator')->generate($data);
-            
         }
 
 

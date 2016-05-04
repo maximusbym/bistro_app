@@ -62,7 +62,8 @@ class BonusCardController extends Controller
                 'Bonus Card ID: '.$id." has been deleted."
             );
 
-            return $this->redirect($request->headers->get('referer'));
+            $backLink = ($request->headers->get('referer')) ? $request->headers->get('referer') : '/';
+            return $this->redirect($backLink);
         }
         else {
             throw $this->createNotFoundException('No BonusCard found');
@@ -73,7 +74,7 @@ class BonusCardController extends Controller
     /**
      * @Route("/bonus-card/toggle/{id}.json", name="card_toggle")
      */
-    public function toggleAction($id, Request $request)
+    public function toggleAction( $id, Request $request)
     {
         if (!$id) {
             throw $this->createNotFoundException('No BonusCard found');
@@ -93,7 +94,7 @@ class BonusCardController extends Controller
             
             $response = new JsonResponse();
             $response->setData(array(
-                'id' => $id,
+                'id' => (int)$id,
                 'status' => $status
             ));
 

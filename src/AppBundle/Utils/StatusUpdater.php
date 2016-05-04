@@ -2,7 +2,6 @@
 namespace AppBundle\Utils;
 
 use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\BonusCard;
 
 class StatusUpdater
 {

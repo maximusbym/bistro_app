@@ -43,7 +43,6 @@ class LoadBonusCardData implements FixtureInterface
             $manager->persist($bonusCard);
 
 
-
             $historyItems = rand(1,8);
             for( $k=0; $k<$historyItems; $k++ ){
 

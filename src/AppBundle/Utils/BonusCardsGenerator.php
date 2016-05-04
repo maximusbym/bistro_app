@@ -31,9 +31,10 @@ class BonusCardsGenerator
         $expDate = clone $currDate;
         $expDate = $expDate->add(new \DateInterval($interval));
 
+        $newObjects = [];
         for($i=0; $i<$amount; $i++) {
 
-            $bonusCard = new BonusCard();
+            $newObjects[] = $bonusCard = new BonusCard();
 
             $bonusCard->setSeries($series);
             $bonusCard->setNumber($faker->numberBetween(100000, 999999));
@@ -46,6 +47,6 @@ class BonusCardsGenerator
 
         $em->flush();
 
-        return ;
+        return $newObjects;
     }
 }
