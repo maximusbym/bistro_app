@@ -76,9 +76,6 @@ class BonusCard
         $this->status = $status;
     }
 
-
-
-
     /**
      * Get id
      *

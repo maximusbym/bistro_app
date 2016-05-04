@@ -132,7 +132,7 @@
                 {% endif %}
             {% endfor %}
         {% endset %}
-        <tr{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
+        <tr data-id="{{ row.field('id') }}" {% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
         {{ gridColumns }}
     {% endspaceless %}
     </tr>

@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class BonusCardController extends Controller
@@ -16,6 +17,9 @@ class BonusCardController extends Controller
      */
     public function showAction($id, Request $request)
     {
+        if (!$id) {
+            throw $this->createNotFoundException('No BonusCard found');
+        }
 
         $em = $this->getDoctrine()->getRepository('AppBundle:BonusCard');
         $bonusCard = $em->findOneByIdJoinedToBonusCardHistory($id);
@@ -67,16 +71,37 @@ class BonusCardController extends Controller
     }
     
     /**
-     * @Route("/bonus-card/toggle/{id}", name="card_toggle")
+     * @Route("/bonus-card/toggle/{id}.json", name="card_toggle")
      */
-    public function toggleAction($id,Request $request)
+    public function toggleAction($id, Request $request)
     {
-        
+        if (!$id) {
+            throw $this->createNotFoundException('No BonusCard found');
+        }
 
-        // replace this example code with whatever you need
-//        return $this->render('default/grid.html.twig', array(
-//            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-//        ));
+        $em = $this->getDoctrine()->getManager();
+        $bonusCard = $em->find('AppBundle:BonusCard',$id);
+
+        if( $bonusCard ) {
+
+            $status = $bonusCard->getStatus();
+            if ($status != 'expired') {
+                $status = ($bonusCard->getStatus() == 'active') ? 'inactive' : 'active';
+                $bonusCard->setStatus($status);
+                $em->flush();
+            }
+            
+            $response = new JsonResponse();
+            $response->setData(array(
+                'id' => $id,
+                'status' => $status
+            ));
+
+            return $response;
+        }
+        else {
+            throw $this->createNotFoundException('No BonusCard found');
+        }
     }
 
 

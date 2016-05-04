@@ -6,6 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Form\FormBuilderInterface;
+
+
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\TextColumn;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
@@ -27,6 +30,7 @@ class DefaultController extends Controller
         $grid->setLimits(array(25, 50));
 
         $myRowAction = new RowAction('Toggle Status', 'card_toggle');
+        $myRowAction->addAttribute('class','status-toggle');
         $grid->addRowAction($myRowAction);
 
         $myRowAction = new RowAction('Profile', 'card_show');
@@ -35,7 +39,26 @@ class DefaultController extends Controller
         $myRowAction = new RowAction('Delete', 'card_delete', true, '_self');
         $grid->addRowAction($myRowAction);
 
-        return $grid->getGridResponse($request->isXmlHttpRequest() ? 'BonusCard/grid.html.twig' : 'default/index.html.twig');
+
+
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('series', TextType::class)
+            ->add('expInterval', SelectType::class)
+            ->add('send', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // data is an array with "name", "email", and "message" keys
+            $data = $form->getData();
+        }
+
+
+
+        return $grid->getGridResponse($request->isXmlHttpRequest() ? 'BonusCard/grid.html.twig' : 'default/index.html.twig',
+            array('form' => 1));
     }
 
 

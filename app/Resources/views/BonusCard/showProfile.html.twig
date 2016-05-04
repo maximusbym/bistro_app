@@ -10,20 +10,20 @@
 
             <h2>Bonus Card ID: {{ bonus_card.id }}</h2>
 
-            <p>series: {{ bonus_card.series }}</p>
-            <p>number: {{ bonus_card.number }}</p>
-            <p>issueDate: {{ bonus_card.issueDate|date("M d, Y") }}</p>
-            <p>expDate: {{ bonus_card.expDate|date("M d, Y") }}</p>
-            <p>status: {{ bonus_card.status }}</p>
-            <p>last card usage date: {{ bonus_card.lastUsage|date("M d, Y") }}</p>
-            <p>total purchases amount: ${{ bonus_card.purchasesAmount }}</p>
+            <p>series: <strong>{{ bonus_card.series }}</strong></p>
+            <p>number: <strong>{{ bonus_card.number }}</strong></p>
+            <p>issueDate: <strong>{{ bonus_card.issueDate|date("M d, Y") }}</strong></p>
+            <p>expDate: <strong>{{ bonus_card.expDate|date("M d, Y") }}</strong></p>
+            <p>status: <strong>{{ bonus_card.status }}</strong></p>
+            <p>last card usage date: <strong>{{ bonus_card.lastUsage|date("M d, Y") }}</strong></p>
+            <p>total purchases amount: <strong>${{ bonus_card.purchasesAmount }}</strong></p>
 
             <h2>Purchases history:</h2>
 
             {% for value in bonus_card.history %}
-                <p>productName: {{ value.productName }}</p>
-                <p>productPrice: ${{ value.productPrice }}</p>
-                <p>date: {{ value.date|date("M d, Y") }}</p>
+                <p>productName: <strong>{{ value.productName }}</strong></p>
+                <p>productPrice: <strong>${{ value.productPrice }}</strong></p>
+                <p>date: <strong>{{ value.date|date("M d, Y") }}</strong></p>
                 <hr/>
             {% endfor %}
 
