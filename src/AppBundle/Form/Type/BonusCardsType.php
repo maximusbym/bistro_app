@@ -22,7 +22,7 @@ class BonusCardsType extends AbstractType
                 'label' => 'Series',
                 'constraints' => array(
                     new NotBlank(),
-                    new Length(array('min' => 3, 'max' => 3, 'exactMessage' => 'the value has to consist of 3 digits')),
+                    new Length(array('min' => 3, 'max' => 3, 'exactMessage' => 'the value has to consist of 3 positive digits')),
                 ),
             ))
             ->add('expInterval', ChoiceType::class, array(
