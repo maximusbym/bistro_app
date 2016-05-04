@@ -10,7 +10,7 @@ use AppBundle\Entity\BonusCardRepository;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BonusCardRepository")
  * @ORM\Table(name="bonus_card")
- * @GRID\Source(columns="id, number, issueDate, expDate, status")
+ * @GRID\Source(columns="id, series, number, issueDate, expDate, status")
  */
 class BonusCard
 {

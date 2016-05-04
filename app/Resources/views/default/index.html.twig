@@ -10,7 +10,9 @@
             <div class="grid-block">
                 <h2>Bonus Cards</h2>
 
-
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
 
                 {% for flash_message in app.session.flashBag.get('notice') %}
                     <div class="flash-notice">

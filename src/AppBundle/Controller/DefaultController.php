@@ -6,8 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use Symfony\Component\Form\FormBuilderInterface;
-
+use AppBundle\Form\Type\BonusCardsType;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\TextColumn;
@@ -40,25 +39,19 @@ class DefaultController extends Controller
         $grid->addRowAction($myRowAction);
 
 
-
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('series', TextType::class)
-            ->add('expInterval', SelectType::class)
-            ->add('send', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(BonusCardsType::class, array());
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
+            $this->get('app.generator')->generate($data);
+            
         }
 
 
-
         return $grid->getGridResponse($request->isXmlHttpRequest() ? 'BonusCard/grid.html.twig' : 'default/index.html.twig',
-            array('form' => 1));
+            array('form' => $form->createView()));
     }
 
 
